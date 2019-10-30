@@ -102,3 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# scraping stuff dont want to make public
+scraping_stuff/
