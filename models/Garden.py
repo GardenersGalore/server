@@ -7,8 +7,10 @@ from mongoengine import connect, Document, StringField, IntField, StringField, S
 
 
 class Garden(Document):
-    name = StringField()
-    username = StringField(unique_with="name")
+    name = StringField(required=True)
+    username = StringField(required=True, unique_with="name")
+    description = StringField()
     location = GeoPointField()
-    width = IntField()
-    height = IntField()
+    loaction_name = StringField()
+    garden_width = IntField(required=True)
+    garden_height = IntField(required=True)

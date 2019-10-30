@@ -7,7 +7,7 @@ from mongoengine import connect, Document, StringField, IntField, StringField, S
 
 
 class Plant(Document):
-    name = StringField(unique=True)
+    name = StringField(unique=True, required=True)
     en_wikipedia_url = StringField()
     binomial_name = StringField() # binomial_name
     description = StringField()

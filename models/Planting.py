@@ -2,15 +2,16 @@
 This model is for an instance of a plant that is within someones backyard
 
 """
-
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField, DateField, GeoPointField
+import datetime
+from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField, DateTimeField
 
 
 class Planting(Document):
-    plant_name = StringField()
-    garden_name = StringField()
-    coordinates = GeoPointField(unique_with=["plant_name", "garden_name"])
-    planted_at = DateField()
+    plant_name = StringField(required=True)
+    garden_name = StringField(required=True)
+    x_coord = IntField(required=True)
+    y_coord = IntField(required=True, unique_with=["garden_name", "x_coord"])
+    planted_at = DateTimeField(default=datetime.datetime.utcnow)
     description = StringField()
     planted_from = StringField() # something like seed, sappling, established ect.
     harvest_count = IntField()
