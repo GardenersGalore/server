@@ -7,6 +7,7 @@ from mongoengine import connect, Document, StringField, IntField, StringField, S
 
 
 class User(Document):
+    name = StringField(unique=True)
     username = StringField(unique=True)
     email = StringField(unique=True)
     password = StringField()
