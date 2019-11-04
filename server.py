@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from endpoints.PlantEndpoint import PlantEndpoint
 from endpoints.PlantingEndpoint import PlantingEndpoint
+from endpoints.WeatherEndpoint import WeatherEndpoint
 from mongoengine import connect
 from dotenv import load_dotenv
 import os
@@ -22,6 +23,7 @@ api = Api(app)
 # add the different routes here
 api.add_resource(PlantEndpoint, '/plant')
 api.add_resource(PlantingEndpoint, '/planting')
+api.add_resource(WeatherEndpoint, '/weather')
 
 if __name__ == '__main__':
     app.run(debug=True)
