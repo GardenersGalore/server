@@ -76,9 +76,9 @@ class UserEndpoint(Resource):
         args = parser.parse_args()
 
         try:
-            garden = json.loads(User.objects.get(name=args['user_name'].to_json()))
+            user = json.loads(User.objects.get(name=args['user_name'].to_json()))
         except Exception as e:
             print(e)
             abort(404, message="User doesnt exist: {} doesn't exist".format(args['user_name']))
 
-        return User
+        return user
