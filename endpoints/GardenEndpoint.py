@@ -33,6 +33,17 @@ class GardenEndpoint(Resource):
         else:
             location = j["location"]
 
+        if "location_name" not in j:
+            abort(422, message="location_name not in json body")
+        else:
+            location_name = j["location_name"]
+
+        if "description" not in j:
+            abort(422, message="description not in json body")
+        else:
+            description = j["description"]
+
+
         if "garden_width" not in j:
             abort(422, message="garden_width not in json body")
         else:
@@ -46,7 +57,9 @@ class GardenEndpoint(Resource):
         garden_obj = Garden(
             name=name,
             username=username,
+            description=description,
             location=location,
+            location_name= location_name,
             garden_width=garden_width,
             garden_height=garden_height
         )
@@ -71,7 +84,7 @@ class GardenEndpoint(Resource):
         args = parser.parse_args()
 
         try:
-            garden = json.loads(Garden.objects.get(name=args['name'].to_json()))
+            garden = json.loads(Garden.objects.get(name=args['name']).to_json())
         except Exception as e:
             print(e)
             abort(404, message="Planting in garden: {} doesn't exist".format(args['name']))

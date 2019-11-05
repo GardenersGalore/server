@@ -1,5 +1,3 @@
-#?lat=-33.8688&lon=151.2093&key=5cb0a6623ac642fdae173097766d6769&hours=48
-
 from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField
 from flask_restful import Resource
 from flask_restful import reqparse
@@ -25,5 +23,4 @@ class WeatherEndpoint(Resource):
 
         r = requests.get(url,params=params)
 
-        print(r.json())
         return r.json()

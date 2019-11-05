@@ -11,6 +11,6 @@ class Garden(Document):
     username = StringField(required=True, unique_with="name")
     description = StringField()
     location = PointField()
-    loaction_name = StringField()
+    location_name = StringField()
     garden_width = IntField(required=True)
     garden_height = IntField(required=True)
