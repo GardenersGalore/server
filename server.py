@@ -10,6 +10,7 @@ from mongoengine import connect
 from dotenv import load_dotenv
 import os
 from flask_cors import CORS
+import ssl
 
 load_dotenv()
 
@@ -18,7 +19,7 @@ load_dotenv()
 
 MONGO_URI=os.getenv("MONGO_URI")
 
-connect(host=MONGO_URI)
+connect(host=MONGO_URI, ssl_cert_reqs=ssl.CERT_NONE)
 
 app = Flask(__name__)
 CORS(app)
