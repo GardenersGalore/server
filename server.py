@@ -7,6 +7,9 @@ from endpoints.PlantingsEndpoint import PlantingsEndpoint
 from endpoints.GardenEndpoint import GardenEndpoint
 from endpoints.GardensEndpoint import GardensEndpoint
 from endpoints.PlantGardenEndpoint import PlantGardenEndpoint
+from endpoints.QuestionEndpoint import QuestionEndpoint
+from endpoints.AnswerEndpoint import AnswerEndpoint
+from endpoints.QuestionsEndpoint import QuestionsEndpoint
 from mongoengine import connect
 from dotenv import load_dotenv
 import os
@@ -35,7 +38,8 @@ api.add_resource(PlantingsEndpoint, '/plantings')
 api.add_resource(GardenEndpoint, '/garden')
 api.add_resource(GardensEndpoint, '/gardens')
 api.add_resource(PlantGardenEndpoint, '/plant-garden')
-
+api.add_resource(QuestionsEndpoint, '/forum/questions')
+api.add_resource(QuestionEndpoint, '/forum/question')
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
