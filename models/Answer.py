@@ -10,4 +10,4 @@ from models.Question import Question
 class Answer(Document):
     answer = StringField(required=True)
     author = ReferenceField(User, required=True)
-    question = ReferenceField(Question, required=True)
+    question_title = ReferenceField(Question, required=True)

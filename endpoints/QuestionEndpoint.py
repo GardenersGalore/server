@@ -17,10 +17,10 @@ class QuestionEndpoint(Resource):
 
         # need to ensure the required fields are in the json
 
-        if "title" not in j:
-            abort(422, message="title is not in json body")
+        if "question_title" not in j:
+            abort(422, message="question_title is not in json body")
         else:
-            title = j["title"]
+            question_title = j["question_title"]
 
         if "author" not in j:
             abort(422, message="author not in json body")
@@ -33,7 +33,7 @@ class QuestionEndpoint(Resource):
             description = j["description"]
 
         question_obj = Question(
-            title=title,
+            question_title=question_title,
             author=author,
             description=description,
         )
@@ -52,14 +52,14 @@ class QuestionEndpoint(Resource):
 
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('title', required=True, type=str, help='The title of the question')
+        parser.add_argument('question_title', required=True, type=str, help='The title of the question')
 
         args = parser.parse_args()
 
         try:
-            question = json.loads(Question.objects.get(title=args['title']).to_json())
+            question = json.loads(Question.objects.get(question_title=args['question_title']).to_json())
         except Exception as e:
             print(e)
-            abort(404, message="Question {} doesn't exist".format(args['title']))
+            abort(404, message="Question {} doesn't exist".format(args['question_title']))
 
         return question
