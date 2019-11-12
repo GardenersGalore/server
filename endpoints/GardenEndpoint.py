@@ -87,6 +87,6 @@ class GardenEndpoint(Resource):
             garden = json.loads(Garden.objects.get(name=args['name']).to_json())
         except Exception as e:
             print(e)
-            abort(404, message="Planting in garden: {} doesn't exist".format(args['name']))
+            return {}
 
         return garden
