@@ -23,9 +23,7 @@ class PlantGardenEndpoint(Resource):
             plant_garden = json.loads(Planting.objects(plant_name=args['plant']).to_json())
             gardenPlant = []
             gardens = []
-            for x in plant_garden:
-                if x["garden_name"] not in gardens:
-                    gardens.append(x["garden_name"])
+            [gardens.append(x["garden_name"]) for x in plant_garden if x["garden_name"] not in gardens]
             for y in gardens:
                 j = json.loads(Garden.objects(name=y).to_json())
                 if j:
