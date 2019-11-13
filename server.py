@@ -6,10 +6,12 @@ from endpoints.WeatherEndpoint import WeatherEndpoint
 from endpoints.PlantingsEndpoint import PlantingsEndpoint
 from endpoints.GardenEndpoint import GardenEndpoint
 from endpoints.GardensEndpoint import GardensEndpoint
+from endpoints.PlantGardenEndpoint import PlantGardenEndpoint
 from mongoengine import connect
 from dotenv import load_dotenv
 import os
 from flask_cors import CORS
+import ssl
 
 load_dotenv()
 
@@ -18,7 +20,7 @@ load_dotenv()
 
 MONGO_URI=os.getenv("MONGO_URI")
 
-connect(host=MONGO_URI)
+connect(host=MONGO_URI, ssl_cert_reqs=ssl.CERT_NONE)
 
 app = Flask(__name__)
 CORS(app)
@@ -32,6 +34,8 @@ api.add_resource(WeatherEndpoint, '/weather')
 api.add_resource(PlantingsEndpoint, '/plantings')
 api.add_resource(GardenEndpoint, '/garden')
 api.add_resource(GardensEndpoint, '/gardens')
+api.add_resource(PlantGardenEndpoint, '/plant-garden')
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
