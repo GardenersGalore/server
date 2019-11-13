@@ -22,11 +22,16 @@ class PlantGardenEndpoint(Resource):
         try:
             plant_garden = json.loads(Planting.objects(plant_name=args['plant']).to_json())
             gardenPlant = []
+            gardens = []
             for x in plant_garden:
-                j = json.loads(Garden.objects(name=x['garden_name']).to_json())
-                gardenPlant.append(j)
-                gardenPlant = [x for x in gardenPlant if x]
-                gardenPlant = sum(gardenPlant, [])
+                if x["garden_name"] not in gardens:
+                    gardens.append(x["garden_name"])
+            for y in gardens:
+                j = json.loads(Garden.objects(name=y).to_json())
+                if j:
+                    gardenPlant.append(j[0])
+            gardenPlant = [x for x in gardenPlant if x]
+
         except Exception as e:
             print(e)
             return {}
