@@ -33,21 +33,21 @@ class PlantingEndpoint(Resource):
         else:
             garden_name = j["garden_name"]
 
-        if "x_coordinate" not in j:
+        if "x_coord" not in j:
             abort(422, message="x_coordinate not in json body")
         else:
-            x_coordinate = j["x_coordinate"]
+            x_coord = j["x_coord"]
 
-        if "y_coordinate" not in j:
-            abort(422, message="y_coordinate not in json body")
+        if "y_coord" not in j:
+            abort(422, message="y_coord not in json body")
         else:
-            y_coordinate = j["y_coordinate"]
+            y_coord = j["y_coord"]
 
         planting_obj = Planting(
             plant_name = plant_name,
             garden_name = garden_name,
-            x_coord = x_coordinate,
-            y_coord = y_coordinate
+            x_coord = x_coord,
+            y_coord = y_coord
         )
 
         if "description" in j:
