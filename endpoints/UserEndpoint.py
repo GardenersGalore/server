@@ -48,7 +48,7 @@ class UserEndpoint(Resource):
         else:
             experience = j["experience"]
 
-        garden_obj = User(
+        user_obj = User(
             name=name,
             username=username,
             email=email,
@@ -57,7 +57,7 @@ class UserEndpoint(Resource):
             experience=experience
         )
 
-        d = garden_obj.save()
+        d = user_obj.save()
 
         return json.loads(d.to_json())
 
@@ -71,14 +71,14 @@ class UserEndpoint(Resource):
 
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('user_name', required=True, type=str, help='The user_name of the User')
+        parser.add_argument('username', required=True, type=str, help='The username of the User')
 
         args = parser.parse_args()
 
         try:
-            user = json.loads(User.objects.get(name=args['user_name'].to_json()))
+            user = json.loads(User.objects.get(username=args['username']).to_json())
         except Exception as e:
             print(e)
-            abort(404, message="User doesnt exist: {} doesn't exist".format(args['user_name']))
+            abort(404, message="User doesnt exist: {} doesn't exist".format(args['username']))
 
         return user
