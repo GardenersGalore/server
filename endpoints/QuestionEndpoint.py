@@ -2,6 +2,7 @@ from mongoengine import connect, Document, StringField, IntField, StringField, S
 from flask_restful import Resource, abort, reqparse
 import json
 from models.Question import Question
+from models.Answer import Answer
 from flask import request
 
 """
@@ -58,6 +59,10 @@ class QuestionEndpoint(Resource):
 
         try:
             question = json.loads(Question.objects.get(question_title=args['question_title']).to_json())
+
+            answers = json.loads(Answer.objects(question_title=args['question_title']).to_json())
+            question['answers'] = answers
+
         except Exception as e:
             print(e)
             abort(404, message="Question {} doesn't exist".format(args['question_title']))

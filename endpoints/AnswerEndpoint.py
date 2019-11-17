@@ -28,15 +28,15 @@ class AnswerEndpoint(Resource):
         else:
             author = j["author"]
 
-        if "question" not in j:
-            abort(422, message="question not in json body")
+        if "question_title" not in j:
+            abort(422, message="question_title not in json body")
         else:
-            question = j["question"]
+            question_title = j["question_title"]
 
         answer_obj = Answer(
             answer=answer,
             author=author,
-            question=question,
+            question_title=question_title,
         )
 
         d = answer_obj.save()
@@ -53,14 +53,14 @@ class AnswerEndpoint(Resource):
 
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('answer', required=True, type=str, help='The answer of the question')
+        parser.add_argument('question_title', required=True, type=str, help='The answer of the question')
 
         args = parser.parse_args()
 
         try:
-            answer = json.loads(Answer.objects.get(answer=args['answer']).to_json())
+            answer = json.loads(Answer.objects.get(question_title=args['question_title']).to_json())
         except Exception as e:
             print(e)
-            abort(404, message="Answer {} doesn't exist".format(args['answer']))
+            abort(404, message="Answer to question {} doesn't exist".format(args['question_title']))
 
-        return question
+        return answer
