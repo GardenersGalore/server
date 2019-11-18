@@ -70,8 +70,23 @@ class PlantingEndpoint(Resource):
         pass
 
     def delete(self):
-        # TODO
-        pass
+        parser = reqparse.RequestParser()
+        parser.add_argument('garden_name', required=True , type=str, help='The name of the garden that this plant is in')
+        parser.add_argument('x_coord', required=True , type=int, help='X Coordinates within the garden')
+        parser.add_argument('y_coord', required=True , type=int, help='Y Coordinates within the garden')
+
+        args = parser.parse_args()
+
+        try: 
+            planting = Planting.objects.get(garden_name=args['garden_name'],
+                                                        y_coord=args['y_coord'],
+                                                        x_coord=args['x_coord'])
+            r = planting.delete()
+        except Exception as e:
+            print(e)
+            abort(404, message="Planting in garden: {} doesn't exist".format(args['garden_name']))
+
+        return r
 
     def get(self):
         parser = reqparse.RequestParser()
