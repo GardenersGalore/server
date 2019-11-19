@@ -12,6 +12,8 @@ from endpoints.AnswerEndpoint import AnswerEndpoint
 from endpoints.QuestionsEndpoint import QuestionsEndpoint
 from endpoints.PlantGardenEndpoint import PlantGardenEndpoint
 from endpoints.UserEndpoint import UserEndpoint
+from endpoints.UserAllEndpoint import UserAllEndpoint
+
 from mongoengine import connect
 from dotenv import load_dotenv
 import os
@@ -34,6 +36,7 @@ api = Api(app)
 
 # add the different routes here
 api.add_resource(UserEndpoint, '/user')
+api.add_resource(UserAllEndpoint, '/userall')
 api.add_resource(PlantEndpoint, '/plant')
 api.add_resource(PlantingEndpoint, '/planting')
 api.add_resource(WeatherEndpoint, '/weather')
