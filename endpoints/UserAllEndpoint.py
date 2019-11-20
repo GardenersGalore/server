@@ -17,7 +17,6 @@ DELETE          Deletes a resource.
 
 class UserAllEndpoint(Resource):
     def get(self):
-        print("RECEIVED REQUEST")
         parser = reqparse.RequestParser()
         parser.add_argument('username', required=True, type=str, help='The username of the User')
 
@@ -26,13 +25,8 @@ class UserAllEndpoint(Resource):
         try:
             seen_plants = dict()
             favourite_plant_count = dict()
-
             user = json.loads(User.objects.get(username=args['username']).to_json())
-
-            print("GOT USERS")
             gardens = json.loads(Garden.objects(username=args['username']).to_json())
-
-            print("GOT GARDENS")
             for garden in gardens:
                 plantings = json.loads(Planting.objects(garden_name=garden['name']).to_json())
 
