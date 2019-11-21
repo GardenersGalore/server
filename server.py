@@ -4,6 +4,7 @@ from endpoints.PlantEndpoint import PlantEndpoint
 from endpoints.PlantingEndpoint import PlantingEndpoint
 from endpoints.WeatherEndpoint import WeatherEndpoint
 from endpoints.PlantingsEndpoint import PlantingsEndpoint
+from endpoints.GardenSearchEndpoint import GardenSearchEndpoint
 from endpoints.GardenEndpoint import GardenEndpoint
 from endpoints.GardensEndpoint import GardensEndpoint
 from endpoints.QuestionEndpoint import QuestionEndpoint
@@ -12,6 +13,8 @@ from endpoints.AnswerEndpoint import AnswerEndpoint
 from endpoints.QuestionsEndpoint import QuestionsEndpoint
 from endpoints.PlantGardenEndpoint import PlantGardenEndpoint
 from endpoints.UserEndpoint import UserEndpoint
+from endpoints.UserSearchEndpoint import UserSearchEndpoint
+
 from endpoints.UserAllEndpoint import UserAllEndpoint
 
 from mongoengine import connect
@@ -47,8 +50,9 @@ api.add_resource(QuestionEndpoint, '/forum/question')
 api.add_resource(AnswerEndpoint, '/forum/answer')
 api.add_resource(PlantGardenEndpoint, '/plant-garden')
 api.add_resource(PlantSearchEndpoint, '/plant-search')
+api.add_resource(GardenSearchEndpoint, '/garden-search')
+api.add_resource(UserSearchEndpoint, '/user-search')
 api.add_resource(QuestionsEndpoint, '/forum/questions')
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
