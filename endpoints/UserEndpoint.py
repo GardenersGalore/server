@@ -38,24 +38,21 @@ class UserEndpoint(Resource):
         else:
             password = j["password"]
 
-        if "phone_number" not in j:
-            abort(422, message="phone_number not in json body")
-        else:
-            phone_number = j["phone_number"]
-
-        if "experience" not in j:
-            abort(422, message="experience not in json body")
-        else:
-            experience = j["experience"]
-
         user_obj = User(
             name=name,
             username=username,
             email=email,
             password=password,
-            phone_number=phone_number,
-            experience=experience
         )
+
+        if "phone_number" in j:
+            user_obj.phone_number = j["phone_number"]
+
+        if "experience" in j:
+            user_obj.experience = j["experience"]
+
+        if "pictureURL" in j:
+            user_obj.pictureURL = j["pictureURL"]
 
         d = user_obj.save()
 
