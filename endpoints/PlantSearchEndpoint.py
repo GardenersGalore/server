@@ -4,6 +4,8 @@ from flask_restful import reqparse
 import json
 from models.Plant import Plant
 from fuzzywuzzy import process
+from flask import jsonify
+
 
 """
 POST            Creates a new resource.
@@ -28,11 +30,13 @@ class PlantSearchEndpoint(Resource):
 
         plant_names = [x['name'] for x in plant]
         plant_choices = process.extract(args['name'], plant_names)
+        plant_choices = [x for x in plant_choices if x[1] > 80]
         plant_list = []
 
         for x in plant_choices:
             for y in plant:
                 if y['name'] == x[0]:
+                    y['description'] = ''
                     plant_list.append(y)
 
-        return json.dumps(plant_list)
+        return jsonify(plant_list)
