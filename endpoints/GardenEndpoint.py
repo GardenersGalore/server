@@ -74,8 +74,19 @@ class GardenEndpoint(Resource):
         pass
 
     def delete(self):
-        # TODO
-        pass
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', required=True, type=str, help='The name of the garden')
+
+        args = parser.parse_args()
+
+        try:
+            garden = Garden.objects.get(name=args['name'])
+            r = garden.delete()
+        except Exception as e:
+            print(e)
+            abort(404, message="Planting in garden: {} doesn't exist".format(args['garden_name']))
+
+        return r
 
     def get(self):
         parser = reqparse.RequestParser()
