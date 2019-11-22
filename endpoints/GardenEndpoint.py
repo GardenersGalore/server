@@ -28,42 +28,27 @@ class GardenEndpoint(Resource):
         else:
             username = j["username"]
 
-        if "location" not in j:
-            abort(422, message="location not in json body")
-        else:
-            location = j["location"]
-
-        if "location_name" not in j:
-            abort(422, message="location_name not in json body")
-        else:
-            location_name = j["location_name"]
-
-        if "description" not in j:
-            abort(422, message="description not in json body")
-        else:
-            description = j["description"]
-
-
-        if "garden_width" not in j:
-            abort(422, message="garden_width not in json body")
-        else:
-            garden_width = j["garden_width"]
-
-        if "garden_height" not in j:
-            abort(422, message="garden_height not in json body")
-        else:
-            garden_height = j["garden_height"]
-
         garden_obj = Garden(
             name=name,
             username=username,
-            description=description,
-            location=location,
-            location_name= location_name,
-            garden_width=garden_width,
-            garden_height=garden_height
         )
 
+        if "location" in j:
+            garden_obj.location = j["location"]
+
+        if "location_name" in j:
+            garden_obj.location_name = j["location_name"]
+
+
+        if "description" in j:
+            garden_obj.description = j["description"]
+
+
+        if "garden_width" in j:
+            garden_obj.garden_width = j["garden_width"]
+
+        if "garden_height" in j:
+            garden_obj.garden_height = j["garden_height"]
 
         d = garden_obj.save()
 
