@@ -4,6 +4,8 @@ from flask_restful import reqparse
 import json
 from models.Garden import Garden
 from fuzzywuzzy import process
+from flask import jsonify
+
 
 
 """
@@ -28,6 +30,8 @@ class GardenSearchEndpoint(Resource):
 
         garden_name = [x['name'] for x in gardens]
         garden_choices = process.extract(args['name'], garden_name)
+        garden_choices = [x for x in garden_choices if x[1] > 80]
+
         garden_list = []
 
         for x in garden_choices:
@@ -35,6 +39,4 @@ class GardenSearchEndpoint(Resource):
                 if y['name'] == x[0]:
                     garden_list.append(y)
 
-        return json.dumps(garden_list)
-
-        return gardens
+        return jsonify(garden_list)

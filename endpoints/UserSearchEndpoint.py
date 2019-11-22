@@ -4,6 +4,8 @@ from flask_restful import reqparse
 import json
 from models.User import User
 from fuzzywuzzy import process
+from flask import jsonify
+
 
 """
 POST            Creates a new resource.
@@ -28,6 +30,7 @@ class UserSearchEndpoint(Resource):
 
         user_names = [x['name'] for x in user]
         user_choices = process.extract(args['name'], user_names)
+        user_choices = [x for x in user_choices if x[1] > 80]
         user_list = []
 
         for x in user_choices:
@@ -35,4 +38,4 @@ class UserSearchEndpoint(Resource):
                 if y['name'] == x[0]:
                     user_list.append(y)
 
-        return json.dumps(user_list)
+        return jsonify(user_list)
