@@ -13,3 +13,4 @@ class User(Document):
     password = StringField(required=True)
     phone_number = StringField()
     experience = StringField()
+    pictureURL = StringField()

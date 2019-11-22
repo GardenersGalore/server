@@ -9,4 +9,4 @@ from models.User import User
 class Question(Document):
     question_title = StringField(required=True)
     author = StringField(unique_with="question_title")
-    description = StringField(required=True)    
+    description = StringField(required=True)
