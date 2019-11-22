@@ -15,3 +15,4 @@ class Planting(Document):
     description = StringField()
     planted_from = StringField() # something like seed, sappling, established ect.
     harvest_count = IntField()
+    pictureURL = StringField()

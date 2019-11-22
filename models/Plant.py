@@ -20,4 +20,5 @@ class Plant(Document):
     sowing_method = StringField()
     sun_requirements = StringField()
     svg_icon = StringField()
+    pictureURL = StringField()
 

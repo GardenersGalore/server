@@ -33,22 +33,23 @@ class GardenEndpoint(Resource):
             username=username,
         )
 
-        if "location" in j:
-            garden_obj.location = j["location"]
+        if "country_name" in j:
+            garden_obj.country_name = j["country_name"]
 
-        if "location_name" in j:
-            garden_obj.location_name = j["location_name"]
-
+        if "city_name" in j:
+            garden_obj.city_name = j["city_name"]
 
         if "description" in j:
             garden_obj.description = j["description"]
-
 
         if "garden_width" in j:
             garden_obj.garden_width = j["garden_width"]
 
         if "garden_height" in j:
             garden_obj.garden_height = j["garden_height"]
+
+        if "pictureURL" in j:
+            garden_obj.pictureURL = j["pictureURL"]
 
         d = garden_obj.save()
 
