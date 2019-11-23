@@ -59,6 +59,8 @@ class PlantingEndpoint(Resource):
         if "harvest_count" in j:
             planting_obj.harvest_count = j["harvest_count"]
 
+        if "pictureURL" in j:
+            planting_obj.pictureURL = j["pictureURL"]
         
         d = planting_obj.save()
 

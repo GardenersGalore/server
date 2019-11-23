@@ -28,42 +28,28 @@ class GardenEndpoint(Resource):
         else:
             username = j["username"]
 
-        if "location" not in j:
-            abort(422, message="location not in json body")
-        else:
-            location = j["location"]
-
-        if "location_name" not in j:
-            abort(422, message="location_name not in json body")
-        else:
-            location_name = j["location_name"]
-
-        if "description" not in j:
-            abort(422, message="description not in json body")
-        else:
-            description = j["description"]
-
-
-        if "garden_width" not in j:
-            abort(422, message="garden_width not in json body")
-        else:
-            garden_width = j["garden_width"]
-
-        if "garden_height" not in j:
-            abort(422, message="garden_height not in json body")
-        else:
-            garden_height = j["garden_height"]
-
         garden_obj = Garden(
             name=name,
             username=username,
-            description=description,
-            location=location,
-            location_name= location_name,
-            garden_width=garden_width,
-            garden_height=garden_height
         )
 
+        if "country_name" in j:
+            garden_obj.country_name = j["country_name"]
+
+        if "city_name" in j:
+            garden_obj.city_name = j["city_name"]
+
+        if "description" in j:
+            garden_obj.description = j["description"]
+
+        if "garden_width" in j:
+            garden_obj.garden_width = j["garden_width"]
+
+        if "garden_height" in j:
+            garden_obj.garden_height = j["garden_height"]
+
+        if "pictureURL" in j:
+            garden_obj.pictureURL = j["pictureURL"]
 
         d = garden_obj.save()
 
@@ -74,8 +60,19 @@ class GardenEndpoint(Resource):
         pass
 
     def delete(self):
-        # TODO
-        pass
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', required=True, type=str, help='The name of the garden')
+
+        args = parser.parse_args()
+
+        try:
+            garden = Garden.objects.get(name=args['name'])
+            r = garden.delete()
+        except Exception as e:
+            print(e)
+            abort(404, message="Planting in garden: {} doesn't exist".format(args['garden_name']))
+
+        return r
 
     def get(self):
         parser = reqparse.RequestParser()
