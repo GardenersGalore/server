@@ -36,7 +36,6 @@ class PlantSearchEndpoint(Resource):
         for x in plant_choices:
             for y in plant:
                 if y['name'] == x[0]:
-                    y['description'] = ''
                     plant_list.append(y)
 
         return jsonify(plant_list)
