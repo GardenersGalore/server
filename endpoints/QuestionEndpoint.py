@@ -53,18 +53,18 @@ class QuestionEndpoint(Resource):
 
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('question_title', required=True, type=str, help='The title of the question')
+        parser.add_argument('_id', type=str, help='unique question id')
 
         args = parser.parse_args()
 
         try:
-            question = json.loads(Question.objects.get(question_title=args['question_title']).to_json())
-
-            answers = json.loads(Answer.objects(question_title=args['question_title']).to_json())
+            question = json.loads(Question.objects(pk=args['_id']).to_json())
+            question = question[0]
+            answers = json.loads(Answer.objects(question_title=question['question_title']).to_json())
             question['answers'] = answers
 
         except Exception as e:
             print(e)
-            abort(404, message="Question {} doesn't exist".format(args['question_title']))
+            abort(404, message="Question Id {} doesn't exist".format(args['_id']))
 
         return question
