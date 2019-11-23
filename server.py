@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from endpoints.PlantEndpoint import PlantEndpoint
+from endpoints.PlantInfoEndpoint import PlantInfoEndpoint
 from endpoints.PlantingEndpoint import PlantingEndpoint
 from endpoints.WeatherEndpoint import WeatherEndpoint
 from endpoints.PlantingsEndpoint import PlantingsEndpoint
@@ -43,6 +44,7 @@ api = Api(app)
 api.add_resource(UserEndpoint, '/user')
 api.add_resource(UserAllEndpoint, '/userall')
 api.add_resource(PlantEndpoint, '/plant')
+api.add_resource(PlantInfoEndpoint, '/plantinfo')
 api.add_resource(PlantingEndpoint, '/planting')
 api.add_resource(WeatherEndpoint, '/weather')
 api.add_resource(PlantingsEndpoint, '/plantings')
