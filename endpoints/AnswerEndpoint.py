@@ -52,15 +52,4 @@ class AnswerEndpoint(Resource):
         pass
 
     def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('question_title', required=True, type=str, help='The answer of the question')
-
-        args = parser.parse_args()
-
-        try:
-            answer = json.loads(Answer.objects.get(question_title=args['question_title']).to_json())
-        except Exception as e:
-            print(e)
-            abort(404, message="Answer to question {} doesn't exist".format(args['question_title']))
-
-        return answer
+        pass
