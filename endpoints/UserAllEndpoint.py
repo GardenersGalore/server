@@ -6,6 +6,7 @@ from models.Planting import Planting
 from models.User import User
 from models.Garden import Garden
 from models.Plant import Plant
+from models.Blog import Blog
 
 
 """
@@ -48,8 +49,10 @@ class UserAllEndpoint(Resource):
                 favourite_plants.append({"plant" : seen_plants[key], "count" : value })
 
 
-            user['favourite_plants'] = favourite_plants
+            blogs = json.loads(Blog.objects(username=args['username']).to_json())
 
+            user['favourite_plants'] = favourite_plants
+            user['blogs'] = blogs
             user['gardens'] = gardens
 
         except Exception as e:

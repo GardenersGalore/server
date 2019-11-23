@@ -5,6 +5,8 @@ import json
 from models.Plant import Plant
 from models.Planting import Planting
 from models.Garden import Garden
+from models.Blog import Blog
+from models.User import User
 
 
 """
@@ -27,10 +29,7 @@ class PlantInfoEndpoint(Resource):
             plantings = json.loads(Planting.objects(plant_name=args['name']).to_json())
 
             seen_plantings = dict()
-            # for planting in plantings:
-            #     if planting['garden_name'] not in seen_plantings:
-            #         print()
-            #         seen_plantings[planting['garden_name']] = planting
+
             for planting in plantings:
                 gname = planting['garden_name']
                 if gname in seen_plantings:
@@ -47,6 +46,15 @@ class PlantInfoEndpoint(Resource):
             for key, value in seen_plantings.items():
                 final_plantings.append(value)
 
+
+            blogs = json.loads(Blog.objects(tags__contains=args['name']).to_json())
+
+            for blog in blogs:
+                if "date" in blog:
+                    blog["date"] = blog["date"]['$date']
+                blog["user"] = json.loads(User.objects.get(username=blog["username"]).to_json())
+
+            plant['blogs'] = blogs
             plant['plantings'] = final_plantings
 
         except Exception as e:
