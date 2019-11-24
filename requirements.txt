@@ -21,3 +21,4 @@ Werkzeug==0.16.0
 WTForms==2.2.1
 fuzzywuzzy==0.17.0
 flask-cors==3.0.8
+python-levenshtein==0.12.0
