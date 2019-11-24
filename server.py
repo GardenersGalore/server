@@ -12,7 +12,8 @@ from endpoints.QuestionEndpoint import QuestionEndpoint
 from endpoints.PlantSearchEndpoint import PlantSearchEndpoint
 from endpoints.AnswerEndpoint import AnswerEndpoint
 from endpoints.QuestionsEndpoint import QuestionsEndpoint
-from endpoints.PlantGardenEndpoint import PlantGardenEndpoint
+from endpoints.QuestionSearchEndpoint import QuestionSearchEndpoint
+
 from endpoints.PlantGardenSearchEndpoint import PlantGardenSearchEndpoint
 from endpoints.BlogEndpoint import BlogEndpoint
 from endpoints.UserEndpoint import UserEndpoint
@@ -57,6 +58,7 @@ api.add_resource(PlantSearchEndpoint, '/plant-search')
 api.add_resource(GardenSearchEndpoint, '/garden-search')
 api.add_resource(UserSearchEndpoint, '/user-search')
 api.add_resource(QuestionsEndpoint, '/forum/questions')
+api.add_resource(QuestionSearchEndpoint, '/question-search')
 api.add_resource(BlogEndpoint, '/blog')
 
 
