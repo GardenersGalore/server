@@ -46,17 +46,18 @@ class PlantInfoEndpoint(Resource):
             for key, value in seen_plantings.items():
                 final_plantings.append(value)
 
-
+           
             blogs = json.loads(Blog.objects(tags__contains=args['name']).to_json())
-
+            
             final_blogs = []
             for blog in blogs:
                 if "date" in blog:
                     blog["date"] = blog["date"]['$date']
-                blog["user"] = json.loads(User.objects.get(username=blog["username"]).to_json())
-                print(blog["user"])
-
-            plant['blogs'] = blogs
+                if "username" in blog:
+                    blog["user"] = json.loads(User.objects.get(username=blog["username"]).to_json())
+                    final_blogs.append(blog)
+                
+            plant['blogs'] = final_blogs
             plant['plantings'] = final_plantings
 
         except Exception as e:
