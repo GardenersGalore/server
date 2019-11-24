@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from endpoints.PlantEndpoint import PlantEndpoint
+from endpoints.PlantInfoEndpoint import PlantInfoEndpoint
 from endpoints.PlantingEndpoint import PlantingEndpoint
 from endpoints.WeatherEndpoint import WeatherEndpoint
 from endpoints.PlantingsEndpoint import PlantingsEndpoint
@@ -14,7 +15,7 @@ from endpoints.QuestionsEndpoint import QuestionsEndpoint
 from endpoints.QuestionSearchEndpoint import QuestionSearchEndpoint
 
 from endpoints.PlantGardenSearchEndpoint import PlantGardenSearchEndpoint
-
+from endpoints.BlogEndpoint import BlogEndpoint
 from endpoints.UserEndpoint import UserEndpoint
 from endpoints.UserSearchEndpoint import UserSearchEndpoint
 
@@ -44,6 +45,7 @@ api = Api(app)
 api.add_resource(UserEndpoint, '/user')
 api.add_resource(UserAllEndpoint, '/userall')
 api.add_resource(PlantEndpoint, '/plant')
+api.add_resource(PlantInfoEndpoint, '/plantinfo')
 api.add_resource(PlantingEndpoint, '/planting')
 api.add_resource(WeatherEndpoint, '/weather')
 api.add_resource(PlantingsEndpoint, '/plantings')
@@ -57,6 +59,7 @@ api.add_resource(GardenSearchEndpoint, '/garden-search')
 api.add_resource(UserSearchEndpoint, '/user-search')
 api.add_resource(QuestionsEndpoint, '/forum/questions')
 api.add_resource(QuestionSearchEndpoint, '/question-search')
+api.add_resource(BlogEndpoint, '/blog')
 
 
 if __name__ == '__main__':
