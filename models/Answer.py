@@ -3,9 +3,8 @@ This model is for forum answer
 
 """
 
-from mongoengine import connect, Document, StringField, ReferenceField
-from models.User import User
-from models.Question import Question
+from mongoengine import Document, StringField
+
 
 class Answer(Document):
     answer = StringField(required=True)

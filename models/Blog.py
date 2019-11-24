@@ -3,9 +3,11 @@ This model is for the blogs
 
 """
 
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField
-from mongoengine.fields import DateTimeField
 import datetime
+
+from mongoengine import Document, StringField, ListField
+from mongoengine.fields import DateTimeField
+
 
 class Blog(Document):
     username = StringField(required=True)

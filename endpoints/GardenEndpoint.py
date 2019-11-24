@@ -1,8 +1,9 @@
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField, DoesNotExist
-from flask_restful import Resource, abort, reqparse
 import json
-from models.Garden import Garden
+
 from flask import request
+from flask_restful import Resource, abort, reqparse
+
+from models.Garden import Garden
 
 """
 POST            Creates a new resource.

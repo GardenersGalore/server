@@ -3,7 +3,8 @@ This model is for an instance of a plant that is within someones backyard
 
 """
 import datetime
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField, DateTimeField
+
+from mongoengine import Document, IntField, StringField, DateTimeField
 
 
 class Planting(Document):
@@ -13,6 +14,6 @@ class Planting(Document):
     y_coord = IntField(required=True, unique_with=["garden_name", "x_coord"])
     planted_at = DateTimeField(default=datetime.datetime.utcnow)
     description = StringField()
-    planted_from = StringField() # something like seed, sappling, established ect.
+    planted_from = StringField()  # something like seed, sappling, established ect.
     harvest_count = IntField()
     pictureURL = StringField()

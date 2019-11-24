@@ -1,13 +1,13 @@
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField
+import json
+
 from flask_restful import Resource
 from flask_restful import reqparse
-import json
-from models.Planting import Planting
-from models.User import User
+
+from models.Blog import Blog
 from models.Garden import Garden
 from models.Plant import Plant
-from models.Blog import Blog
-
+from models.Planting import Planting
+from models.User import User
 
 """
 POST            Creates a new resource.
@@ -15,6 +15,7 @@ GET             Retrieves a resource.
 PUT             Updates an existing resource.
 DELETE          Deletes a resource.
 """
+
 
 class UserAllEndpoint(Resource):
     def get(self):
@@ -41,13 +42,10 @@ class UserAllEndpoint(Resource):
                         seen_plants[planting['plant_name']] = plant
                         favourite_plant_count[planting['plant_name']] = 1
                 garden['plantings'] = plantings
-                
-            
 
             favourite_plants = []
             for key, value in favourite_plant_count.items():
-                favourite_plants.append({"plant" : seen_plants[key], "count" : value })
-
+                favourite_plants.append({"plant": seen_plants[key], "count": value})
 
             blogs = json.loads(Blog.objects(username=args['username']).to_json())
 

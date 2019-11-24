@@ -1,11 +1,11 @@
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField
+import json
+
+from flask import jsonify
 from flask_restful import Resource
 from flask_restful import reqparse
-import json
-from models.Plant import Plant
 from fuzzywuzzy import process
-from flask import jsonify
 
+from models.Plant import Plant
 
 """
 POST            Creates a new resource.

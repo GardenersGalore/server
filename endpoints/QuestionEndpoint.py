@@ -1,9 +1,10 @@
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField, DoesNotExist
-from flask_restful import Resource, abort, reqparse
 import json
-from models.Question import Question
-from models.Answer import Answer
+
 from flask import request
+from flask_restful import Resource, abort, reqparse
+
+from models.Answer import Answer
+from models.Question import Question
 
 """
 POST            Creates a new resource.
@@ -11,6 +12,7 @@ GET             Retrieves a resource.
 PUT             Updates an existing resource.
 DELETE          Deletes a resource.
 """
+
 
 class QuestionEndpoint(Resource):
     def post(self):

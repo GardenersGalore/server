@@ -1,13 +1,13 @@
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField
+import json
+
 from flask_restful import Resource
 from flask_restful import reqparse
-import json
+
+from models.Blog import Blog
+from models.Garden import Garden
 from models.Plant import Plant
 from models.Planting import Planting
-from models.Garden import Garden
-from models.Blog import Blog
 from models.User import User
-
 
 """
 POST            Creates a new resource.
@@ -16,13 +16,12 @@ PUT             Updates an existing resource.
 DELETE          Deletes a resource.
 """
 
+
 class PlantInfoEndpoint(Resource):
     def get(self):
         parser = reqparse.RequestParser()
         parser.add_argument('name', type=str, help='Common Name of the plant you want to search')
         args = parser.parse_args()
-
-
 
         try:
             plant = json.loads(Plant.objects.get(name=args['name']).to_json())
@@ -46,9 +45,8 @@ class PlantInfoEndpoint(Resource):
             for key, value in seen_plantings.items():
                 final_plantings.append(value)
 
-           
             blogs = json.loads(Blog.objects(tags__contains=args['name']).to_json())
-            
+
             final_blogs = []
             for blog in blogs:
                 if "date" in blog:
@@ -56,7 +54,7 @@ class PlantInfoEndpoint(Resource):
                 if "username" in blog:
                     blog["user"] = json.loads(User.objects.get(username=blog["username"]).to_json())
                     final_blogs.append(blog)
-                
+
             plant['blogs'] = final_blogs
             plant['plantings'] = final_plantings
 

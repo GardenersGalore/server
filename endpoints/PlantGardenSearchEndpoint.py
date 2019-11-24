@@ -1,13 +1,12 @@
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField
+import json
+
+from flask import jsonify
 from flask_restful import Resource
 from flask_restful import reqparse
-import json
-from models.Planting import Planting
-
 from fuzzywuzzy import process
-from flask import jsonify
-from models.Garden import Garden
 
+from models.Garden import Garden
+from models.Planting import Planting
 
 """
 POST            Creates a new resource.
@@ -16,6 +15,7 @@ PUT             Updates an existing resource.
 DELETE          Deletes a resource.
 """
 
+
 class PlantGardenSearchEndpoint(Resource):
     def get(self):
         parser = reqparse.RequestParser()
@@ -23,7 +23,7 @@ class PlantGardenSearchEndpoint(Resource):
         args = parser.parse_args()
 
         try:
-            planting= json.loads(Planting.objects().to_json())
+            planting = json.loads(Planting.objects().to_json())
 
         except Exception as e:
             print(e)

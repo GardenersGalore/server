@@ -1,45 +1,43 @@
-from flask import Flask
-from flask_restful import Api
-from endpoints.PlantEndpoint import PlantEndpoint
-from endpoints.PlantInfoEndpoint import PlantInfoEndpoint
-from endpoints.PlantingEndpoint import PlantingEndpoint
-from endpoints.WeatherEndpoint import WeatherEndpoint
-from endpoints.PlantingsEndpoint import PlantingsEndpoint
-from endpoints.GardenSearchEndpoint import GardenSearchEndpoint
-from endpoints.GardenEndpoint import GardenEndpoint
-from endpoints.GardensEndpoint import GardensEndpoint
-from endpoints.QuestionEndpoint import QuestionEndpoint
-from endpoints.PlantSearchEndpoint import PlantSearchEndpoint
-from endpoints.AnswerEndpoint import AnswerEndpoint
-from endpoints.QuestionsEndpoint import QuestionsEndpoint
-from endpoints.QuestionSearchEndpoint import QuestionSearchEndpoint
+import os
+import ssl
 
-from endpoints.PlantGardenSearchEndpoint import PlantGardenSearchEndpoint
+from dotenv import load_dotenv
+from flask import Flask
+from flask_cors import CORS
+from flask_restful import Api
+from mongoengine import connect
+
+from endpoints.AnswerEndpoint import AnswerEndpoint
 from endpoints.BlogEndpoint import BlogEndpoint
+from endpoints.GardenEndpoint import GardenEndpoint
+from endpoints.GardenSearchEndpoint import GardenSearchEndpoint
+from endpoints.GardensEndpoint import GardensEndpoint
+from endpoints.PlantEndpoint import PlantEndpoint
+from endpoints.PlantGardenSearchEndpoint import PlantGardenSearchEndpoint
+from endpoints.PlantInfoEndpoint import PlantInfoEndpoint
+from endpoints.PlantSearchEndpoint import PlantSearchEndpoint
+from endpoints.PlantingEndpoint import PlantingEndpoint
+from endpoints.PlantingsEndpoint import PlantingsEndpoint
+from endpoints.QuestionEndpoint import QuestionEndpoint
+from endpoints.QuestionSearchEndpoint import QuestionSearchEndpoint
+from endpoints.QuestionsEndpoint import QuestionsEndpoint
+from endpoints.UserAllEndpoint import UserAllEndpoint
 from endpoints.UserEndpoint import UserEndpoint
 from endpoints.UserSearchEndpoint import UserSearchEndpoint
-
-from endpoints.UserAllEndpoint import UserAllEndpoint
-
-from mongoengine import connect
-from dotenv import load_dotenv
-import os
-from flask_cors import CORS
-import ssl
+from endpoints.WeatherEndpoint import WeatherEndpoint
 
 load_dotenv()
 
 # the main api that we can use:
 # https://github.com/Growstuff/growstuff/wiki/API-Version-0
 
-MONGO_URI=os.getenv("MONGO_URI")
+MONGO_URI = os.getenv("MONGO_URI")
 
 connect(host=MONGO_URI, ssl_cert_reqs=ssl.CERT_NONE)
 
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
-
 
 # add the different routes here
 api.add_resource(UserEndpoint, '/user')
@@ -60,7 +58,6 @@ api.add_resource(UserSearchEndpoint, '/user-search')
 api.add_resource(QuestionsEndpoint, '/forum/questions')
 api.add_resource(QuestionSearchEndpoint, '/question-search')
 api.add_resource(BlogEndpoint, '/blog')
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)

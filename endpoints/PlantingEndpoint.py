@@ -1,9 +1,11 @@
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField, DoesNotExist
-from flask_restful import Resource, abort, reqparse
 import json
-from models.Planting import Planting
-from models.Plant import Plant
+
 from flask import request
+from flask_restful import Resource, abort, reqparse
+from mongoengine import DoesNotExist
+
+from models.Plant import Plant
+from models.Planting import Planting
 
 """
 POST            Creates a new resource.
@@ -11,6 +13,7 @@ GET             Retrieves a resource.
 PUT             Updates an existing resource.
 DELETE          Deletes a resource.
 """
+
 
 class PlantingEndpoint(Resource):
     def post(self):
@@ -26,7 +29,7 @@ class PlantingEndpoint(Resource):
             try:
                 print(Plant.objects.get(name=plant_name))
             except DoesNotExist:
-                abort(404, message="plant_name is not a name of a valid plant") 
+                abort(404, message="plant_name is not a name of a valid plant")
 
         if "garden_name" not in j:
             abort(422, message="garden_name not in json body")
@@ -44,10 +47,10 @@ class PlantingEndpoint(Resource):
             y_coord = j["y_coord"]
 
         planting_obj = Planting(
-            plant_name = plant_name,
-            garden_name = garden_name,
-            x_coord = x_coord,
-            y_coord = y_coord
+            plant_name=plant_name,
+            garden_name=garden_name,
+            x_coord=x_coord,
+            y_coord=y_coord
         )
 
         if "description" in j:
@@ -61,9 +64,8 @@ class PlantingEndpoint(Resource):
 
         if "pictureURL" in j:
             planting_obj.pictureURL = j["pictureURL"]
-        
-        d = planting_obj.save()
 
+        d = planting_obj.save()
 
         return json.loads(d.to_json())
 
@@ -73,16 +75,16 @@ class PlantingEndpoint(Resource):
 
     def delete(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('garden_name', required=True , type=str, help='The name of the garden that this plant is in')
-        parser.add_argument('x_coord', required=True , type=int, help='X Coordinates within the garden')
-        parser.add_argument('y_coord', required=True , type=int, help='Y Coordinates within the garden')
+        parser.add_argument('garden_name', required=True, type=str, help='The name of the garden that this plant is in')
+        parser.add_argument('x_coord', required=True, type=int, help='X Coordinates within the garden')
+        parser.add_argument('y_coord', required=True, type=int, help='Y Coordinates within the garden')
 
         args = parser.parse_args()
 
-        try: 
+        try:
             planting = Planting.objects.get(garden_name=args['garden_name'],
-                                                        y_coord=args['y_coord'],
-                                                        x_coord=args['x_coord'])
+                                            y_coord=args['y_coord'],
+                                            x_coord=args['x_coord'])
             r = planting.delete()
         except Exception as e:
             print(e)
@@ -92,9 +94,9 @@ class PlantingEndpoint(Resource):
 
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('garden_name', required=True , type=str, help='The name of the garden that this plant is in')
-        parser.add_argument('x_coord', required=True , type=int, help='X Coordinates within the garden')
-        parser.add_argument('y_coord', required=True , type=int, help='Y Coordinates within the garden')
+        parser.add_argument('garden_name', required=True, type=str, help='The name of the garden that this plant is in')
+        parser.add_argument('x_coord', required=True, type=int, help='X Coordinates within the garden')
+        parser.add_argument('y_coord', required=True, type=int, help='Y Coordinates within the garden')
 
         args = parser.parse_args()
 

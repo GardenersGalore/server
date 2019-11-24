@@ -3,7 +3,7 @@ This model is for the user
 
 """
 
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField, DateField, GeoPointField
+from mongoengine import Document, IntField, StringField, GeoPointField
 
 
 class Garden(Document):

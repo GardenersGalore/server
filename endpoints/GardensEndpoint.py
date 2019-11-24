@@ -1,7 +1,8 @@
-from mongoengine import connect, Document, StringField, IntField, StringField, StringField, ListField
+import json
+
 from flask_restful import Resource
 from flask_restful import reqparse
-import json
+
 from models.Garden import Garden
 
 """
@@ -10,6 +11,7 @@ GET             Retrieves a resource.
 PUT             Updates an existing resource.
 DELETE          Deletes a resource.
 """
+
 
 class GardensEndpoint(Resource):
     def get(self):
